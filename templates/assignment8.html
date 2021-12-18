@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% block content %}
+    <div>
+            {% set myName ={'firstName': "liron", 'lastName':"amiel"} %}
+            <h1>Hello my name from jinja is {{ myName.firstName | capitalize }} {{ myName.lastName | upper}}</h1>
+        </div>
+        <div>
+            {% set page_name= 'hobbis' %}
+            {% include 'hobbis.html' %}
+        </div>
+        <div>
+            {{ myLovedNumber| abs }}
+            {% if myLovedNumber==6 %}
+                Ooooo i love this number
+            {% endif %}
+        </div>
+        <div>
+        {{ user| upper }}
+        <ul>
+
+            {% for user in users %}
+                <li>{{ user }}</li>
+            {% endfor %}
+        </ul>
+        </div>
+{% endblock %}
