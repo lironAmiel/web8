@@ -2,11 +2,10 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <title>{% block title %}{% endblock %}</title>
 </head>
 <body>
-    <div id="navbar">
-        <h2>Lironz information </h2>
-    </div>
+{% include 'header.html' %}
 {% block content %}{% endblock %}
 </body>
 </html>
