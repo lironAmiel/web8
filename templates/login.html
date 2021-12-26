@@ -1,0 +1,24 @@
+{% extends'base.html' %}
+{% block title %}
+login
+{% endblock %}
+
+{% block content %}
+
+
+
+
+
+
+    {% if  username  %}
+        <h2> Welcome {{ username }}</h2>
+    {% else %}
+        <h1>please login</h1>
+            <form action="/login" method="POST">
+                username: <input name="username" type="text">
+                password: <input name="password" type="password">
+                <input type="submit">
+            </form>
+    {% endif %}
+
+{% endblock %}
