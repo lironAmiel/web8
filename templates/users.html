@@ -1,0 +1,36 @@
+{% extends'base.html' %}
+{% block title %}
+users
+{% endblock %}
+
+{% block content %}
+    <h1>users page</h1>
+    <h2>insert form</h2>
+    <form action="/insertUser" method="post">
+        <input type="text" name="name" placeholder="Name">
+        <input type="text" name="email" placeholder="Email">
+        <input type="password" name="password" placeholder="password">
+        <input type="submit" value="Insert">
+    </form>
+    <hr>
+    <h2>users list:</h2>
+    <ul>
+        <ul>
+            {% for user in users %}
+                <li>
+                    <form action="/delet_user" method="post" style="display: inline">
+                        <input type="hidden" name="id" value="{{ user.id }}">
+                        <input type="submit" value="delete">
+                    </form>
+                    <form action="/update" method="post" style="display: inline">
+                        <input type="hidden" name="name" value="{{ user.name }}">
+                        <input type="text" name="newName" placeholder="update the name">
+                        <input type="submit" value="upadte">
+                    </form>
+                        {{ user.name }} , Email: {{ user.email }}</li>
+            {% endfor %}
+        </ul>
+    </ul>
+
+
+{% endblock %}
