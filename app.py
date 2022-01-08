@@ -2,20 +2,8 @@ from flask import Flask , render_template
 from flask import request, redirect
 import mysql.connector
 from interact_with_DB import interact_db
-
-'''mydb = mysql.connector.connect(
-  host="localhost",
-  user="root",
-  password="root",
-  database="users"
-)
-
-mycursor = mydb.cursor()
-
-sql = "INSERT INTO user (userNum, userName, email) VALUES (%s, %s, %s)"
-val = ("user1", "Liron", "amiel@gmail.com")
-mycursor.execute(sql, val)
-mydb.commit()'''
+import requests
+import random
 
 
 app = Flask(__name__)
@@ -103,6 +91,34 @@ def update():
     interact_db(query=query, query_type='commit')
     return redirect('/users')
 
+@app.route('/assignment11/outer_source')
+def assignment11():
+    return render_template('assignment11.html')
+
+@app.route('/reqBackend')
+def requestBackend():
+    num = 3
+    if "number" in request.args:
+        num = int(request.args['number'])
+    users = getUsers(num)
+    return render_template('assignment11.html', users=users)
+
+def getUsers(num):
+    users = []
+    res = requests.get(f'https://reqres.in/api/users/{num}')
+    res = res.json()
+    users.append(res)
+    return users
+
+@app.route('/assignment11')
+def ass11A():
+    return render_template('ass11A.html')
+
+@app.route('/assignment11/users',methods=['GET','POST'])
+def usersAss1():
+    query="select * from users;"
+    users= interact_db(query=query, query_type='fetch')
+    return render_template('ass11A.html', users=users)
 
 
 if __name__ == '__main__':

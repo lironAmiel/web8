@@ -1,0 +1,25 @@
+{% extends'base.html' %}
+{% block title %}
+assigment11
+{% endblock %}
+
+{% block content %}
+    <h1>Welcome to ass11</h1>
+    <h1>request frontend</h1>
+    <h2>users list:<button onclick="getUsers()">Get users</button> </h2>
+    <main>
+
+    </main>
+    <script src="../static/js/fetchUsers.js"></script>
+    <h1>request backend</h1>
+    <h2> users</h2>
+    <form action="/reqBackend">
+        <input type="number" name="number">
+        <input type="submit" value="get user">
+    </form>
+    {% if users %}
+        <img src="{{users[0]['data']['avatar']}}" alt="profile pic"/>
+        <h4>name:{{users[0]['data']['first_name']}} {{users[0]['data']['last_name']}}</h4>
+        <a href="mailto:{{users[0]['data']['email']}}">Send email</a>
+    {% endif %}
+{% endblock %}
