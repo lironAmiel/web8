@@ -1,9 +1,11 @@
 from flask import Flask , render_template
 from flask import request, redirect
 import mysql.connector
+from google.protobuf.internal.more_messages_pb2 import default
 from interact_with_DB import interact_db
 import requests
 import random
+from flask import jsonify
 
 
 app = Flask(__name__)
@@ -121,5 +123,26 @@ def usersAss1():
     return render_template('ass11A.html', users=users)
 
 
+@app.route('/assignment12/restapi_users' , defaults= {'userId': 1})
+@app.route('/assignment12/restapi_users/<int:userId>')
+def ass12(userId):
+    query="select * from users where id =%s;" %userId
+    users= interact_db(query=query, query_type='fetch')
+    if len(users)==0:
+        returnDict = {
+            'status': 'faild',
+            'messege': 'user not found'
+        }
+    else:
+        returnDict = {
+            'status': 'secsess',
+            'id' : users[0].id,
+            'name':users[0].name,
+            'eamil': users[0].email,
+        }
+    return jsonify(returnDict)
+
+
+
 if __name__ == '__main__':
-    app.run(debug=true)
+    app.run(debug=True)
